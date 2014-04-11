@@ -12,9 +12,19 @@ $(function(){
 Compass = function(compId, textId){
   this.compass = compId;
   this.angleText = textId
-}
 
-Compass.prototype = {
+  this.setAngleOfCompass(0);
+};
 
-
-}
+Compass.prototype={
+  setAngleOfCompass: function(angle){
+    this._rotateCompass(angle);
+    this._setTextOfDirection(""+angle+"°");
+  },
+  _rotateCompass: function(deg){
+    $(this.compass).css("transform", "rotate("+deg+"deg)");
+  },
+  _setTextOfDirection: function(textString){
+    $(this.angleText).text(textString);
+  }
+};

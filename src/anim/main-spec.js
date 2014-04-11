@@ -7,10 +7,27 @@ describe("Compass -", function() {
     expect(new Compass()).toEqual(jasmine.any(Object));
   });
 
-  it("should be able to initialize compass with compassImage + Textfield",function(){
-    var compass = new Compass("test1", "test2");
-    expect(compass.compass).toEqual("test1");
-    expect(compass.angleText).toEqual("test2");
+});
+
+describe("Compass Object", function(){
+  beforeEach(function(){
+    this.compass = new Compass("#compassImage", "#directionHeading");
   });
+
+  it("should be able to initialize compass with compassImage + Textfield",function(){
+    expect(this.compass.compass).toEqual("#compassImage");
+    expect(this.compass.angleText).toEqual("#directionHeading");
+  });
+
+  it("initialization should set a default angle/text", function(){
+    spyOn(Compass.prototype, "_rotateCompass");
+    spyOn(Compass.prototype, "_setTextOfDirection");
+    new Compass()
+    expect(Compass.prototype._rotateCompass).toHaveBeenCalled();
+    expect(Compass.prototype._rotateCompass).toHaveBeenCalledWith(0);
+    expect(Compass.prototype._setTextOfDirection).toHaveBeenCalled();
+    expect(Compass.prototype._setTextOfDirection).toHaveBeenCalledWith("0°");
+  });
+
 
 });
