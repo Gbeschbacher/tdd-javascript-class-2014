@@ -81,3 +81,28 @@ describe("Map ", function(){
   });
 });
 
+describe("Compass angle should be set with ", function(){
+  it("222 pixel; expected result: _rotateCompass gets called with 55.5 degree", function(){
+    spyOn(Compass.prototype, "_rotateCompass");
+    spyOn(Compass.prototype, "mapPixelToDeg");
+    new Compass("#compassImage", "#directionHeading").mapPixelToDeg(222);
+    expect(Compass.prototype._rotateCompass).toHaveBeenCalled();
+    expect(Compass.prototype.mapPixelToDeg).toHaveBeenCalledWith(222);
+  });
+});
+
+describe("Compass text should be according to set angle ", function(){
+  beforeEach(function(){
+    //this.compass = new Compass("#compassImage", "#directionHeading");
+  });
+
+  it("360 pixel --> 90deg --> West = text", function(){
+    var temp = new Compass();
+    spyOn(Compass.prototype, "_setTextOfDirection");
+    spyOn(Compass.prototype, "convertAngleToCardinalDirection");
+    spyOn(Compass.prototype, "mapPixelToDeg");
+
+    Compass.prototype.setTextAccordingToPixel(360);
+    expect(Compass.prototype._setTextOfDirection).toHaveBeenCalled();
+  });
+});
