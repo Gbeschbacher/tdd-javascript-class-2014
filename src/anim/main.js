@@ -1,5 +1,4 @@
 var $ = require('jquery');
-
 var imageEl = $(new Image());
 imageEl.load(function() {
   $('#compassImage').append(imageEl);
@@ -7,11 +6,12 @@ imageEl.load(function() {
 }).attr('src', '/img/compass.png');
 
 $(function(){
-
+  new Compass("#compassImage", "#directionHeading");
 });
 
-Compass = function(){
-
+Compass = function(compId, textId){
+  this.compass = compId;
+  this.angleText = textId
 }
 
 Compass.prototype = {
