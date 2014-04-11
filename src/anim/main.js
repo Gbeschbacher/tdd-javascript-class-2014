@@ -37,6 +37,9 @@ Compass.prototype={
     return (this.cardinalDirectionMap[angle] ?
       this.cardinalDirectionMap[angle] : angle+"°");
   },
+  mapPixelToDeg: function(pixel){
+    return pixel/4;
+  },
   _rotateCompass: function(deg){
     $(this.compass).css("transform", "rotate("+deg+"deg)");
   },

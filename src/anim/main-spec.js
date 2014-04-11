@@ -54,7 +54,6 @@ describe("Convert ", function(){
 });
 
 describe("Leave ", function(){
-
   beforeEach(function(){
     this.compass = new Compass("#compassImage", "#directionHeading");
   });
@@ -65,6 +64,20 @@ describe("Leave ", function(){
 
   it("should still leave non-cardinal (2) directions as degree (2°) ", function(){
     expect(this.compass.convertAngleToCardinalDirection(2)).toEqual("2°");
+  });
+});
+
+describe("Map ", function(){
+  beforeEach(function(){
+    this.compass = new Compass("#compassImage", "#directionHeading");
+  });
+
+  it("pixel (16) to degree (4) ", function(){
+    expect(this.compass.mapPixelToDeg(16)).toEqual(4);
+  });
+
+  it("pixel (222) to degree (55.5) ", function(){
+    expect(this.compass.mapPixelToDeg(222)).toEqual(55.5);
   });
 });
 
