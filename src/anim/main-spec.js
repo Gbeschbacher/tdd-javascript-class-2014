@@ -51,7 +51,20 @@ describe("Convert ", function(){
   it("angle 315 to cardinal direction (North-East)", function(){
     expect(this.compass.convertAngleToCardinalDirection(315)).toEqual("North-East")
   });
+});
 
+describe("Leave ", function(){
 
+  beforeEach(function(){
+    this.compass = new Compass("#compassImage", "#directionHeading");
+  });
+
+  it("should still leave non-cardinal (222) directions as degree (222°) ", function(){
+    expect(this.compass.convertAngleToCardinalDirection(222)).toEqual("222°");
+  });
+
+  it("should still leave non-cardinal (2) directions as degree (2°) ", function(){
+    expect(this.compass.convertAngleToCardinalDirection(2)).toEqual("2°");
+  });
 });
 
