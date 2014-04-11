@@ -40,6 +40,18 @@ describe("Convert ", function(){
     expect(this.compass.convertAngleToCardinalDirection(0)).toEqual("North")
   });
 
+  it("angle 90 to cardinal direction (West)", function(){
+    expect(this.compass.convertAngleToCardinalDirection(90)).toEqual("West")
+  });
+
+  it("angle 45 to cardinal direction (North-West)", function(){
+    expect(this.compass.convertAngleToCardinalDirection(45)).toEqual("North-West")
+  });
+
+  it("angle 315 to cardinal direction (North-East)", function(){
+    expect(this.compass.convertAngleToCardinalDirection(315)).toEqual("North-East")
+  });
+
 
 });
 
