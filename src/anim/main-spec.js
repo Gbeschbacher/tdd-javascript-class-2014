@@ -28,6 +28,18 @@ describe("Compass Object", function(){
     expect(Compass.prototype._setTextOfDirection).toHaveBeenCalled();
     expect(Compass.prototype._setTextOfDirection).toHaveBeenCalledWith("0°");
   });
+});
+
+describe("Convert ", function(){
+
+  beforeEach(function(){
+    this.compass = new Compass("#compassImage", "#directionHeading");
+  });
+
+  it("angle 0 to cardinal direction (North)", function(){
+    expect(this.compass.convertAngleToCardinalDirection(0)).toEqual("North")
+  });
 
 
 });
+

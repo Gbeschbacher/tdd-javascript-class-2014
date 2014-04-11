@@ -21,6 +21,9 @@ Compass.prototype={
     this._rotateCompass(angle);
     this._setTextOfDirection(""+angle+"°");
   },
+  convertAngleToCardinalDirection: function(angle){
+    return "North";
+  },
   _rotateCompass: function(deg){
     $(this.compass).css("transform", "rotate("+deg+"deg)");
   },
