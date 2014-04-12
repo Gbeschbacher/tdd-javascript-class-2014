@@ -4,18 +4,12 @@ imageEl.load(function() {
   $('#compassImage').append(imageEl);
   imageEl.attr('width', '500');
 }).attr('src', '/img/compass.png');
-$(function(){
-  var compass = new Compass("#compassImage", "#directionHeading");
-
-  window.onscroll = function(){
-    compass.setAngleOfCompassByPixel($(window).scrollTop());
-    compass.setTextAccordingToPixel($(window).scrollTop());
-  }
-});
 
 Compass = function(compId, textId){
   this.compass = compId;
-  this.angleText = textId
+  this.angleText = textId;
+
+  this.angleCounter = 0;
 
   this.cardinalDirectionMap = {
     0:    "North",
@@ -27,36 +21,35 @@ Compass = function(compId, textId){
     270:  "East",
     315:  "North-East"
   };
-  this.setAngleOfCompass(0);
 };
 
 Compass.prototype={
-  setAngleOfCompass: function(angle){
-    this._rotateCompass(angle);
-    this.setTextAccordingToPixel(angle);
+  setTextOfDirection: function(textString){
+    $(this.angleText).text(textString);
   },
-  convertAngleToCardinalDirection: function(angle){
-    while(angle >= 360){
-      angle-=360;
-    }
-    return (this.cardinalDirectionMap[angle] ?
-      this.cardinalDirectionMap[angle] : angle+"°");
+  getAngle: function(counter){
+    var angle = counter % 360
+    return (angle<0? angle+360: angle);
   },
-  mapPixelToDeg: function(pixel){
-    return Math.round(pixel/24.5);
-  },
-  setAngleOfCompassByPixel: function(pixel){
-    this._rotateCompass(this.mapPixelToDeg(pixel));
-  },
-  setTextAccordingToPixel: function(pixel){
-    this._setTextOfDirection(
-      this.convertAngleToCardinalDirection(this.mapPixelToDeg(pixel))
-    );
-  },
-  _rotateCompass: function(deg){
+  rotateCompass: function(deg){
     $(this.compass).css("transform", "rotate("+deg+"deg)");
   },
-  _setTextOfDirection: function(textString){
-    $(this.angleText).text(textString);
+  rotateAndSetText: function(counter){
+    this.rotateCompass(this.getAngle(counter));
+
+    var text = this.cardinalDirectionMap[this.getAngle(counter)]? this.cardinalDirectionMap[this.getAngle(counter)] : this.getAngle(counter);
+    this.setTextOfDirection(text)
   }
 };
+
+var compass = new Compass("#compassImage", "#directionHeading");
+
+document.addEventListener("mousewheel", mouseWheelHandler, false);
+function mouseWheelHandler(ev){
+  if(ev.wheelDelta > 0){
+    compass.angleCounter--;
+  }else{
+    compass.angleCounter++;
+  }
+  compass.rotateAndSetText(compass.angleCounter);
+}
