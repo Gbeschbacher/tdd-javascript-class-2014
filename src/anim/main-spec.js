@@ -26,7 +26,7 @@ describe("Compass Object", function(){
     expect(Compass.prototype._rotateCompass).toHaveBeenCalled();
     expect(Compass.prototype._rotateCompass).toHaveBeenCalledWith(0);
     expect(Compass.prototype._setTextOfDirection).toHaveBeenCalled();
-    expect(Compass.prototype._setTextOfDirection).toHaveBeenCalledWith("0°");
+    expect(Compass.prototype._setTextOfDirection).toHaveBeenCalledWith("North");
   });
 });
 
@@ -72,12 +72,11 @@ describe("Map ", function(){
     this.compass = new Compass("#compassImage", "#directionHeading");
   });
 
-  it("pixel (16) to degree (4) ", function(){
-    expect(this.compass.mapPixelToDeg(16)).toEqual(4);
+  it("pixel (49) to degree (2) ", function(){
+    expect(this.compass.mapPixelToDeg(49)).toEqual(2);
   });
-
-  it("pixel (222) to degree (55.5) ", function(){
-    expect(this.compass.mapPixelToDeg(222)).toEqual(55.5);
+  it("pixel (245) to degree (10) ", function(){
+    expect(this.compass.mapPixelToDeg(245)).toEqual(10);
   });
 });
 
@@ -92,10 +91,6 @@ describe("Compass angle should be set with ", function(){
 });
 
 describe("Compass text should be according to set angle ", function(){
-  beforeEach(function(){
-    //this.compass = new Compass("#compassImage", "#directionHeading");
-  });
-
   it("360 pixel --> 90deg --> West = text", function(){
     var temp = new Compass();
     spyOn(Compass.prototype, "_setTextOfDirection");

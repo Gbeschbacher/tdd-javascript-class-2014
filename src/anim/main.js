@@ -5,7 +5,12 @@ imageEl.load(function() {
   imageEl.attr('width', '500');
 }).attr('src', '/img/compass.png');
 $(function(){
-  new Compass("#compassImage", "#directionHeading");
+  var compass = new Compass("#compassImage", "#directionHeading");
+
+  window.onscroll = function(){
+    compass.setAngleOfCompassByPixel($(window).scrollTop());
+    compass.setTextAccordingToPixel($(window).scrollTop());
+  }
 });
 
 Compass = function(compId, textId){
@@ -28,7 +33,7 @@ Compass = function(compId, textId){
 Compass.prototype={
   setAngleOfCompass: function(angle){
     this._rotateCompass(angle);
-    this._setTextOfDirection(""+angle+"°");
+    this.setTextAccordingToPixel(angle);
   },
   convertAngleToCardinalDirection: function(angle){
     while(angle >= 360){
@@ -38,8 +43,7 @@ Compass.prototype={
       this.cardinalDirectionMap[angle] : angle+"°");
   },
   mapPixelToDeg: function(pixel){
-
-    return pixel/4;
+    return Math.round(pixel/24.5);
   },
   setAngleOfCompassByPixel: function(pixel){
     this._rotateCompass(this.mapPixelToDeg(pixel));
